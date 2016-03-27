@@ -13,7 +13,7 @@
 <meta property="og:description" content="结合目前较为流行的图片库，选择Fresco的原因：1、Fresco最小版本支持到android API 9 ，Gilde 最小版本支持到10；2、使用简单，123456SimpleDraweeView mBaselineJpegView = (SimpleDraweeView) findViewById(R.id.baseline_jpeg); Uri uri2 = new Uri.Builder">
 <meta property="og:image" content="http://yoursite.com/img/420084037180.png">
 <meta property="og:image" content="http://yoursite.com/img/213201822267.png">
-<meta property="og:updated_time" content="2016-03-27T14:35:28.803Z">
+<meta property="og:updated_time" content="2016-03-27T14:37:59.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fresco调研报告">
 <meta name="twitter:description" content="结合目前较为流行的图片库，选择Fresco的原因：1、Fresco最小版本支持到android API 9 ，Gilde 最小版本支持到10；2、使用简单，123456SimpleDraweeView mBaselineJpegView = (SimpleDraweeView) findViewById(R.id.baseline_jpeg); Uri uri2 = new Uri.Builder">
@@ -57,7 +57,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -90,7 +90,44 @@
       
         <h2 id="结合目前较为流行的图片库，选择Fresco的原因："><a href="#结合目前较为流行的图片库，选择Fresco的原因：" class="headerlink" title="结合目前较为流行的图片库，选择Fresco的原因："></a>结合目前较为流行的图片库，选择Fresco的原因：</h2><h3 id="1、Fresco最小版本支持到android-API-9-，Gilde-最小版本支持到10；"><a href="#1、Fresco最小版本支持到android-API-9-，Gilde-最小版本支持到10；" class="headerlink" title="1、Fresco最小版本支持到android API 9 ，Gilde 最小版本支持到10；"></a>1、Fresco最小版本支持到android API 9 ，Gilde 最小版本支持到10；</h3><h3 id="2、使用简单，"><a href="#2、使用简单，" class="headerlink" title="2、使用简单，"></a>2、使用简单，</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SimpleDraweeView mBaselineJpegView = (SimpleDraweeView) findViewById(R.id.baseline_jpeg);</span><br><span class="line"> Uri uri2 = new Uri.Builder()</span><br><span class="line">         .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // <span class="string">"res"</span></span><br><span class="line"> .path(String.valueOf(R.drawable.discover_sns))</span><br><span class="line">         .build();</span><br><span class="line"> mBaselineJpegView.setImageURI(uri2);`</span><br></pre></td></tr></table></figure>
 <p> 支持布局文件xml设置属性，占位图、加载动画、缩放比例、圆角和圆形设置等；<br> 特别注意：Fresco 不支持 相对路径的URI. 所有的URI都必须是绝对路径，并且带上该URI的scheme。</p>
-<p> 如下:<br> | 类型             | Scheme           |              示例                              |<br> | —————- |:—————-:|: ———————————————-|<br> | 远程图片         | <a href="http://,https://" target="_blank" rel="external">http://,https://</a> | HttpURLConnection 或者参考 使用其他网络加载方案|                           |<br> | 本地文件         | file://          | FileInputStream                                |<br> | Content provider | content://       | ContentResolver                                |<br> | asset目录下的资源| asset://         | AssetManager                                   |<br> | res目录下的资源  | res://           | Resources.openRawResource                      |</p>
+<p> 如下:</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:center">Scheme</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>远程图片</td>
+<td style="text-align:center"><a href="http://,https://" target="_blank" rel="external">http://,https://</a></td>
+<td>HttpURLConnection 或者参考 使用其他网络加载方案</td>
+<td></td>
+</tr>
+<tr>
+<td>本地文件</td>
+<td style="text-align:center">file://</td>
+<td>FileInputStream</td>
+</tr>
+<tr>
+<td>Content provider</td>
+<td style="text-align:center">content://</td>
+<td>ContentResolver</td>
+</tr>
+<tr>
+<td>asset目录下的资源</td>
+<td style="text-align:center">asset://</td>
+<td>AssetManager</td>
+</tr>
+<tr>
+<td>res目录下的资源</td>
+<td style="text-align:center">res://</td>
+<td>Resources.openRawResource</td>
+</tr>
+</tbody>
+</table>
 <h3 id="3、5-0以下系统：图片不存储在Java-heap，而是存储在ashmem，中间的字节-buffer同样位于native-heap。使用”ashmem”（匿名共享内存）区域存储Bitmap缓存，这样Bitmap对象的创建、释放将永远不会触发GC，关-于”ashmem”存储区域，它是一个不在Java堆区的一片存储内存空间，它的管理由Linux内核驱动管理，这块存储区域是别于堆-内存之外的一块空间，且这块空间是可以多进程共享的，GC的活动不会影响到它。5-0以上系统，由于内存管理的优化，所以对于5-0以上的系统-Fresco将Bitmap缓存直接放到了堆内存中。"><a href="#3、5-0以下系统：图片不存储在Java-heap，而是存储在ashmem，中间的字节-buffer同样位于native-heap。使用”ashmem”（匿名共享内存）区域存储Bitmap缓存，这样Bitmap对象的创建、释放将永远不会触发GC，关-于”ashmem”存储区域，它是一个不在Java堆区的一片存储内存空间，它的管理由Linux内核驱动管理，这块存储区域是别于堆-内存之外的一块空间，且这块空间是可以多进程共享的，GC的活动不会影响到它。5-0以上系统，由于内存管理的优化，所以对于5-0以上的系统-Fresco将Bitmap缓存直接放到了堆内存中。" class="headerlink" title="3、5.0以下系统：图片不存储在Java heap，而是存储在ashmem，中间的字节 buffer同样位于native heap。使用”ashmem”（匿名共享内存）区域存储Bitmap缓存，这样Bitmap对象的创建、释放将永远不会触发GC，关 于”ashmem”存储区域，它是一个不在Java堆区的一片存储内存空间，它的管理由Linux内核驱动管理，这块存储区域是别于堆 内存之外的一块空间，且这块空间是可以多进程共享的，GC的活动不会影响到它。5.0以上系统，由于内存管理的优化，所以对于5.0以上的系统 Fresco将Bitmap缓存直接放到了堆内存中。"></a>3、5.0以下系统：图片不存储在Java heap，而是存储在ashmem，中间的字节 buffer同样位于native heap。使用”ashmem”（匿名共享内存）区域存储Bitmap缓存，这样Bitmap对象的创建、释放将永远不会触发GC，关 于”ashmem”存储区域，它是一个不在Java堆区的一片存储内存空间，它的管理由Linux内核驱动管理，这块存储区域是别于堆 内存之外的一块空间，且这块空间是可以多进程共享的，GC的活动不会影响到它。5.0以上系统，由于内存管理的优化，所以对于5.0以上的系统 Fresco将Bitmap缓存直接放到了堆内存中。</h3><h3 id="关于”ashmem”的存储区域，我们的应用程序并不能像访问堆内存一样直接访问这块内存块，但是也有一些例外，对于Bitmap而言，有一种-为”Purgeable-Bitmap”可擦除的Bitmap位图是存储在这块内存区域中的，BitmapFactory-Options中有这么一个属性inPurgeable："><a href="#关于”ashmem”的存储区域，我们的应用程序并不能像访问堆内存一样直接访问这块内存块，但是也有一些例外，对于Bitmap而言，有一种-为”Purgeable-Bitmap”可擦除的Bitmap位图是存储在这块内存区域中的，BitmapFactory-Options中有这么一个属性inPurgeable：" class="headerlink" title="关于”ashmem”的存储区域，我们的应用程序并不能像访问堆内存一样直接访问这块内存块，但是也有一些例外，对于Bitmap而言，有一种 为”Purgeable Bitmap”可擦除的Bitmap位图是存储在这块内存区域中的，BitmapFactory.Options中有这么一个属性inPurgeable："></a>关于”ashmem”的存储区域，我们的应用程序并不能像访问堆内存一样直接访问这块内存块，但是也有一些例外，对于Bitmap而言，有一种 为”Purgeable Bitmap”可擦除的Bitmap位图是存储在这块内存区域中的，BitmapFactory.Options中有这么一个属性inPurgeable：</h3> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BitmapFactory.Options = new BitmapFactory.Options();</span><br><span class="line">options.inPurgeable = <span class="literal">true</span>;</span><br><span class="line">Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length, options);</span><br></pre></td></tr></table></figure>
 <h3 id="所以通过配置inPurgeable-true这个属性，这样解码出来的Bitmap位图就存储在”ashmem”区域中，之后用到”ashmem”中得图片时，则把这个图片从这个区域中取出来，渲染完毕后则放回这个位置。"><a href="#所以通过配置inPurgeable-true这个属性，这样解码出来的Bitmap位图就存储在”ashmem”区域中，之后用到”ashmem”中得图片时，则把这个图片从这个区域中取出来，渲染完毕后则放回这个位置。" class="headerlink" title="所以通过配置inPurgeable = true这个属性，这样解码出来的Bitmap位图就存储在”ashmem”区域中，之后用到”ashmem”中得图片时，则把这个图片从这个区域中取出来，渲染完毕后则放回这个位置。"></a>所以通过配置inPurgeable = true这个属性，这样解码出来的Bitmap位图就存储在”ashmem”区域中，之后用到”ashmem”中得图片时，则把这个图片从这个区域中取出来，渲染完毕后则放回这个位置。</h3><h3 id="既然Fresco中Bitmap缓存在5-0以前是放在”ashmem”中，GC并不会回收它们，且也不会被”ashmeme”内置的清除机制回收-它们，所以这样虽然使得在堆中不会造成内存泄露，而在这块区域可能造成内存泄露，Fresco中采取的办法则是使用引用计数的方式，其中有一个-SharedReference这个类，这个类中有这么两个方法：addReference-和deleteReference-，通过这两个基本方-法来对引用进行计数，一旦计数为零时，则对应的资源将会清除（如：Bitmap-recycle-等），而Fresco为了考虑更容易被我们使用，又提-供了一个CloseableReference类，该类可以说是SharedReference类上功能的封装，CloseableReference同-时也实现了Cloneable、Closeable接口，它在调用-clone-方法时同时会调用addReference-来增加一个引用计数，在-调用-close-方法时同时会调用deleteReference-来删除一个引用计数，所以在使用Fresco的使用，我们都是与-CloseableReference类打交道，使用CloseableReference必须遵循以下两条规则："><a href="#既然Fresco中Bitmap缓存在5-0以前是放在”ashmem”中，GC并不会回收它们，且也不会被”ashmeme”内置的清除机制回收-它们，所以这样虽然使得在堆中不会造成内存泄露，而在这块区域可能造成内存泄露，Fresco中采取的办法则是使用引用计数的方式，其中有一个-SharedReference这个类，这个类中有这么两个方法：addReference-和deleteReference-，通过这两个基本方-法来对引用进行计数，一旦计数为零时，则对应的资源将会清除（如：Bitmap-recycle-等），而Fresco为了考虑更容易被我们使用，又提-供了一个CloseableReference类，该类可以说是SharedReference类上功能的封装，CloseableReference同-时也实现了Cloneable、Closeable接口，它在调用-clone-方法时同时会调用addReference-来增加一个引用计数，在-调用-close-方法时同时会调用deleteReference-来删除一个引用计数，所以在使用Fresco的使用，我们都是与-CloseableReference类打交道，使用CloseableReference必须遵循以下两条规则：" class="headerlink" title="既然Fresco中Bitmap缓存在5.0以前是放在”ashmem”中，GC并不会回收它们，且也不会被”ashmeme”内置的清除机制回收 它们，所以这样虽然使得在堆中不会造成内存泄露，而在这块区域可能造成内存泄露，Fresco中采取的办法则是使用引用计数的方式，其中有一个 SharedReference这个类，这个类中有这么两个方法：addReference()和deleteReference()，通过这两个基本方 法来对引用进行计数，一旦计数为零时，则对应的资源将会清除（如：Bitmap.recycle()等），而Fresco为了考虑更容易被我们使用，又提 供了一个CloseableReference类，该类可以说是SharedReference类上功能的封装，CloseableReference同 时也实现了Cloneable、Closeable接口，它在调用.clone()方法时同时会调用addReference()来增加一个引用计数，在 调用.close()方法时同时会调用deleteReference()来删除一个引用计数，所以在使用Fresco的使用，我们都是与 CloseableReference类打交道，使用CloseableReference必须遵循以下两条规则："></a>既然Fresco中Bitmap缓存在5.0以前是放在”ashmem”中，GC并不会回收它们，且也不会被”ashmeme”内置的清除机制回收 它们，所以这样虽然使得在堆中不会造成内存泄露，而在这块区域可能造成内存泄露，Fresco中采取的办法则是使用引用计数的方式，其中有一个 SharedReference这个类，这个类中有这么两个方法：addReference()和deleteReference()，通过这两个基本方 法来对引用进行计数，一旦计数为零时，则对应的资源将会清除（如：Bitmap.recycle()等），而Fresco为了考虑更容易被我们使用，又提 供了一个CloseableReference类，该类可以说是SharedReference类上功能的封装，CloseableReference同 时也实现了Cloneable、Closeable接口，它在调用.clone()方法时同时会调用addReference()来增加一个引用计数，在 调用.close()方法时同时会调用deleteReference()来删除一个引用计数，所以在使用Fresco的使用，我们都是与 CloseableReference类打交道，使用CloseableReference必须遵循以下两条规则：</h3><h4 id="1）、在赋值CloseableReference给新对象的时候，调用-clone-进行赋值"><a href="#1）、在赋值CloseableReference给新对象的时候，调用-clone-进行赋值" class="headerlink" title="1）、在赋值CloseableReference给新对象的时候，调用.clone()进行赋值"></a>1）、在赋值CloseableReference给新对象的时候，调用.clone()进行赋值</h4><h4 id="2）、在超出作用域范围的时候，必须调用-close-，通常会在finally代码块中调用"><a href="#2）、在超出作用域范围的时候，必须调用-close-，通常会在finally代码块中调用" class="headerlink" title="2）、在超出作用域范围的时候，必须调用.close()，通常会在finally代码块中调用"></a>2）、在超出作用域范围的时候，必须调用.close()，通常会在finally代码块中调用</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void <span class="function"><span class="title">gee</span></span>() &#123;</span><br><span class="line">  CloseableReference&lt;Value&gt; ref = foo();</span><br><span class="line">  try &#123;</span><br><span class="line">    haa(ref);</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    ref.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="遵循这些规则可以有效地防止内存泄漏。"><a href="#遵循这些规则可以有效地防止内存泄漏。" class="headerlink" title="遵循这些规则可以有效地防止内存泄漏。"></a>遵循这些规则可以有效地防止内存泄漏。</h3><h3 id="4、目前支持目前大部分图片格式：png、jpg-jpeg、gif、webP，jpeg图片的渐进式呈现，webp格式是Google官方推行的，它的大小比其它格式图片的大小要小一半左右，目前各个大公司都渐入的使用这种图片格式了，-使用该格式最大的优点就是轻量、省流量、图片加载迅速。而Fresco是通过jni来实现-支持WebP格式图片；"><a href="#4、目前支持目前大部分图片格式：png、jpg-jpeg、gif、webP，jpeg图片的渐进式呈现，webp格式是Google官方推行的，它的大小比其它格式图片的大小要小一半左右，目前各个大公司都渐入的使用这种图片格式了，-使用该格式最大的优点就是轻量、省流量、图片加载迅速。而Fresco是通过jni来实现-支持WebP格式图片；" class="headerlink" title="4、目前支持目前大部分图片格式：png、jpg/jpeg、gif、webP，jpeg图片的渐进式呈现，webp格式是Google官方推行的，它的大小比其它格式图片的大小要小一半左右，目前各个大公司都渐入的使用这种图片格式了， 使用该格式最大的优点就是轻量、省流量、图片加载迅速。而Fresco是通过jni来实现 支持WebP格式图片；"></a>4、目前支持目前大部分图片格式：png、jpg/jpeg、gif、webP，jpeg图片的渐进式呈现，webp格式是Google官方推行的，它的大小比其它格式图片的大小要小一半左右，目前各个大公司都渐入的使用这种图片格式了， 使用该格式最大的优点就是轻量、省流量、图片加载迅速。而Fresco是通过jni来实现 支持WebP格式图片；</h3><h3 id="5、支持集成okHttp、Volley；"><a href="#5、支持集成okHttp、Volley；" class="headerlink" title="5、支持集成okHttp、Volley；"></a>5、支持集成okHttp、Volley；</h3><h3 id="6、Fresco是一个MVC模型，由三大组件构成，它们的对应关系如下所示："><a href="#6、Fresco是一个MVC模型，由三大组件构成，它们的对应关系如下所示：" class="headerlink" title="6、Fresco是一个MVC模型，由三大组件构成，它们的对应关系如下所示："></a>6、Fresco是一个MVC模型，由三大组件构成，它们的对应关系如下所示：</h3><h3 id="M-gt-DraweeHierarchy-V-gt-DraweeView-C-gt-DraweeController"><a href="#M-gt-DraweeHierarchy-V-gt-DraweeView-C-gt-DraweeController" class="headerlink" title="M -&gt; DraweeHierarchy V -&gt; DraweeView C -&gt; DraweeController"></a>M -&gt; DraweeHierarchy V -&gt; DraweeView C -&gt; DraweeController</h3><h3 id="M-所对应的-DraweeHierarchy-是一个有层次结构的数据结构，DraweeView-用来显示位于-DraweeHierarchy-最顶层的图像（top-level-drawable），DraweeController-则用来控制-DraweeHierarchy-的顶层图像是哪一个。"><a href="#M-所对应的-DraweeHierarchy-是一个有层次结构的数据结构，DraweeView-用来显示位于-DraweeHierarchy-最顶层的图像（top-level-drawable），DraweeController-则用来控制-DraweeHierarchy-的顶层图像是哪一个。" class="headerlink" title="M 所对应的 DraweeHierarchy 是一个有层次结构的数据结构，DraweeView 用来显示位于 DraweeHierarchy 最顶层的图像（top level drawable），DraweeController 则用来控制 DraweeHierarchy 的顶层图像是哪一个。"></a>M 所对应的 DraweeHierarchy 是一个有层次结构的数据结构，DraweeView 用来显示位于 DraweeHierarchy 最顶层的图像（top level drawable），DraweeController 则用来控制 DraweeHierarchy 的顶层图像是哪一个。</h3>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">o FadeDrawable (top level drawable)</span><br><span class="line">|</span><br><span class="line">+--o ScaleTypeDrawable</span><br><span class="line">|  |</span><br><span class="line">|  +--o BitmapDrawable</span><br><span class="line">|</span><br><span class="line">+--o ScaleTypeDrawable</span><br><span class="line">   |</span><br><span class="line">   +--o BitmapDrawable</span><br></pre></td></tr></table></figure>
@@ -101,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/27/Fresco调研报告/" data-id="cimao4mth0000ngs8j6sg616s" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/03/27/Fresco调研报告/" data-id="cimao7irb0000ags8282v5gq0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -112,7 +149,7 @@
   
   
     <a href="/2016/03/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ouder</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">Hello World</div>
     </a>
   
@@ -135,7 +172,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li></ul>
     </div>
@@ -145,7 +182,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
